@@ -1,9 +1,10 @@
 /*
- * Copyright (c) 2023 Airbyte, Inc., all rights reserved.
+ * Copyright (c) 2020-2024 Airbyte, Inc., all rights reserved.
  */
 
 package io.airbyte.workers.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.databind.JsonNode;
 import io.airbyte.config.ConnectionContext;
 import io.airbyte.config.JobSyncConfig;
@@ -21,6 +22,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class ReplicationActivityInput {
 
   // Actor ID for the source used in the sync - this is used to update the actor configuration when
@@ -64,5 +66,10 @@ public class ReplicationActivityInput {
   private RefreshSchemaActivityOutput schemaRefreshOutput;
   // Replication context object containing relevant IDs
   private ConnectionContext connectionContext;
+  // Whether to use workload API
+  private Boolean useWorkloadApi;
+  // TODO: remove with another temporal version
+  @Deprecated
+  private Boolean useNewDocStoreApi;
 
 }
